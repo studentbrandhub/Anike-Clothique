@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anike Clothique</title>
+  <style>
+    :root {
+      --primary: #1f6f4a;
+      --accent: #ffffff;
+      --highlight: #d4af37;
+      --muted: rgba(0, 0, 0, 0.65);
+      --bg: #f7f7f9;
+      --radius: 16px;
+      --shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+      scroll-behavior: smooth;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: #111; line-height: 1.5; }
+    a { color: inherit; text-decoration: none; }
+    header { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; backdrop-filter: blur(14px); background: rgba(255,255,255,0.78); border-bottom: 1px solid rgba(0,0,0,0.08); }
+    .nav { max-width: 1100px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .brand { font-size: 1.2rem; font-weight: 800; letter-spacing: 1px; color: var(--primary); }
+    .nav-links { display: flex; gap: 1rem; }
+    .nav-links a { padding: 0.6rem 0.9rem; border-radius: 999px; font-weight: 600; transition: background 0.2s; }
+    .nav-links a:hover { background: rgba(31,111,74,0.12); }
+    .mobile-toggle { display: none; background: none; border: none; cursor: pointer; }
+    main { padding-top: 84px; }
+    section { padding: 6rem 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .hero { min-height: 78vh; display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(135deg, rgba(31,111,74,0.85), rgba(0,0,0,0.45)), url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat; color: #fff; }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 1px; margin-bottom: 1rem; }
+    .hero p { font-size: 1.1rem; max-width: 620px; margin: 0 auto 2rem; color: rgba(255,255,255,0.9); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem 1.6rem; border-radius: 999px; border: none; cursor: pointer; font-weight: 700; transition: transform 0.2s, box-shadow 0.2s; }
+    .btn-primary { background: var(--highlight); color: #111; box-shadow: 0 14px 28px rgba(212,175,55,0.35); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 18px 32px rgba(212,175,55,0.45); }
+    .btn-outline { background: rgba(255,255,255,0.18); color: #fff; border: 1px solid rgba(255,255,255,0.5); }
+    .btn-outline:hover { background: rgba(255,255,255,0.28); }
+    .section-title { text-align: center; margin-bottom: 2rem; }
+    .section-title h2 { font-size: 2.2rem; margin: 0.75rem 0; }
+    .section-title p { max-width: 680px; margin: 0 auto; color: var(--muted); }
+    .grid { display: grid; gap: 2.2rem; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.25s, box-shadow 0.25s; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(0,0,0,0.16); }
+    .card img { width: 100%; height: 220px; object-fit: cover; }
+    .card-body { padding: 1.6rem; display: flex; flex-direction: column; gap: 1rem; flex: 1; }
+    .card-title { font-size: 1.2rem; font-weight: 700; }
+    .card-text { color: var(--muted); flex: 1; }
+    .badge { display: inline-block; padding: 0.35rem 0.85rem; border-radius: 999px; background: rgba(31,111,74,0.15); color: var(--primary); font-weight: 700; font-size: 0.85rem; }
+    .float-whatsapp { position: fixed; bottom: 20px; right: 20px; width: 56px; height: 56px; border-radius: 999px; background: #25d366; color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 14px 30px rgba(0,0,0,0.25); z-index: 99; cursor: pointer; transition: transform 0.2s; }
+    .float-whatsapp:hover { transform: translateY(-3px); }
+    .socials { display: flex; gap: 0.8rem; justify-content: center; margin-top: 1rem; }
+    .social-btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.7rem 1.1rem; border-radius: 999px; border: 1px solid rgba(0,0,0,0.12); transition: background 0.2s; }
+    .social-btn:hover { background: rgba(31,111,74,0.08); }
+    .credits { text-align: center; margin-top: 3rem; color: var(--muted); font-size: 0.9rem; }
+    footer { padding: 2.5rem 1.5rem; background: #0f0f13; color: rgba(255,255,255,0.75); }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.2rem; }
+    .footer-brand { font-weight: 800; color: #fff; }
+    .footer-sub { max-width: 380px; color: rgba(255,255,255,0.65); }
+    @media (max-width: 920px) { .grid-3 { grid-template-columns: 1fr; } .grid-2 { grid-template-columns: 1fr; } }
+    @media (max-width: 720px) {
+      header { position: fixed; }
+      .nav-links { position: fixed; top: 76px; right: 0; left: 0; background: rgba(255,255,255,0.92); flex-direction: column; padding: 1.5rem; gap: 0.9rem; transform: translateX(110%); transition: transform 0.25s ease; }
+      .nav-links.open { transform: translateX(0); }
+      .mobile-toggle { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">Anike Clothique</div>
+      <button class="mobile-toggle" id="navToggle" aria-label="Toggle navigation">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#products">Products</a>
+        <a href="#order">Order</a>
+        <a href="#follow">Follow</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container">
+        <h1>Anike Clothique</h1>
+        <p>Quality Fashion for Everyday Style</p>
+        <p>Discover trendy fashion items including sneakers, bags, jewelry, perfumes, and stylish outfits designed to upgrade your everyday look.</p>
+        <div style="display:flex; justify-content:center; gap:1rem; flex-wrap: wrap;">
+          <a class="btn btn-primary" href="#products">View Products</a>
+          <a class="btn btn-outline" href="https://wa.me/2347019143507" target="_blank" rel="noreferrer">Order on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-title">
+          <span class="badge">About Anike Clothique</span>
+          <h2>Style, quality, and effortless confidence</h2>
+          <p>Anike Clothique is a fashion brand dedicated to providing quality fashion items including sneakers, slides, bags, jewelry, perfumes, and stylish clothing. Our goal is to help customers look stylish, confident, and fashionable every day.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="products" style="background: rgba(31,111,74,0.06);">
+      <div class="container">
+        <div class="section-title">
+          <span class="badge">Products</span>
+          <h2>Handpicked pieces for every moment</h2>
+          <p>Browse our curated product collection designed for everyday style and lasting quality.</p>
+        </div>
+        <div class="grid grid-3">
+          <article class="card" data-title="Quality Roundneck" data-img="A1.jpeg" data-desc="Comfortable and stylish roundneck shirts perfect for casual everyday wear.">
+            <img src="A1.jpeg" alt="Quality Roundneck">
+            <div class="card-body">
+              <h3 class="card-title">Quality Roundneck</h3>
+              <p class="card-text">Comfortable and stylish roundneck shirts perfect for casual everyday wear.</p>
+            </div>
+          </article>
+          <article class="card" data-title="Duvet" data-img="A2.jpeg" data-desc="Soft and comfortable duvet designed for warmth and quality sleep.">
+            <img src="A2.jpeg" alt="Duvet">
+            <div class="card-body">
+              <h3 class="card-title">Duvet</h3>
+              <p class="card-text">Soft and comfortable duvet designed for warmth and quality sleep.</p>
+            </div>
+          </article>
+          <article class="card" data-title="Perfume Combo" data-img="A3.jpeg" data-desc="Long-lasting fragrance combo set perfect for daily use and special occasions.">
+            <img src="A3.jpeg" alt="Perfume Combo">
+            <div class="card-body">
+              <h3 class="card-title">Perfume Combo</h3>
+              <p class="card-text">Long-lasting fragrance combo set perfect for daily use and special occasions.</p>
+            </div>
+          </article>
+          <article class="card" data-title="Non-Stick Pot" data-img="A4.jpeg" data-desc="Durable kitchen pot designed for easy cooking and cleaning.">
+            <img src="A4.jpeg" alt="Non-Stick Pot">
+            <div class="card-body">
+              <h3 class="card-title">Non-Stick Pot</h3>
+              <p class="card-text">Durable kitchen pot designed for easy cooking and cleaning.</p>
+            </div>
+          </article>
+          <article class="card" data-title="Quality Louis Vuitton Sneakers" data-img="A5.jpeg" data-desc="Stylish designer sneakers built for comfort and fashion.">
+            <img src="A5.jpeg" alt="Quality Louis Vuitton Sneakers">
+            <div class="card-body">
+              <h3 class="card-title">Quality Louis Vuitton Sneakers</h3>
+              <p class="card-text">Stylish designer sneakers built for comfort and fashion.</p>
+            </div>
+          </article>
+          <article class="card" data-title="Quality Unisex Mesh Gown" data-img="A6.jpeg" data-desc="Fashionable and breathable mesh gown suitable for both men and women.">
+            <img src="A6.jpeg" alt="Quality Unisex Mesh Gown">
+            <div class="card-body">
+              <h3 class="card-title">Quality Unisex Mesh Gown</h3>
+              <p class="card-text">Fashionable and breathable mesh gown suitable for both men and women.</p>
+            </div>
+          </article>
+          <article class="card" data-title="Stone Heels" data-img="A7.jpeg" data-desc="Elegant heels designed to add style and confidence to your outfit.">
+            <img src="A7.jpeg" alt="Stone Heels">
+            <div class="card-body">
+              <h3 class="card-title">Stone Heels</h3>
+              <p class="card-text">Elegant heels designed to add style and confidence to your outfit.</p>
+            </div>
+          </article>
+          <article class="card" data-title="Quality G-Shock Wristwatch" data-img="A8.jpeg" data-desc="Durable and stylish wristwatch suitable for everyday wear.">
+            <img src="A8.jpeg" alt="Quality G-Shock Wristwatch">
+            <div class="card-body">
+              <h3 class="card-title">Quality G-Shock Wristwatch</h3>
+              <p class="card-text">Durable and stylish wristwatch suitable for everyday wear.</p>
+            </div>
+          </article>
+          <article class="card" data-title="Non-Tarnish Necklace" data-img="A9.jpeg" data-desc="Elegant jewelry piece designed to maintain its shine over time.">
+            <img src="A9.jpeg" alt="Non-Tarnish Necklace">
+            <div class="card-body">
+              <h3 class="card-title">Non-Tarnish Necklace</h3>
+              <p class="card-text">Elegant jewelry piece designed to maintain its shine over time.</p>
+            </div>
+          </article>
+          <article class="card" data-title="Quality Baggy Jean" data-img="A10.jpeg" data-desc="Trendy baggy jeans designed for comfort and modern street style.">
+            <img src="A10.jpeg" alt="Quality Baggy Jean">
+            <div class="card-body">
+              <h3 class="card-title">Quality Baggy Jean</h3>
+              <p class="card-text">Trendy baggy jeans designed for comfort and modern street style.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="order">
+      <div class="container">
+        <div class="section-title">
+          <span class="badge">Place Your Order</span>
+          <h2>Ready to shop? Send your order now.</h2>
+          <p>Interested in our fashion items? Click the button below to order directly via WhatsApp.</p>
+        </div>
+        <div style="text-align:center;">
+          <a class="btn btn-primary" href="https://wa.me/2347019143507" target="_blank" rel="noreferrer">Order on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="follow" style="background: rgba(31,111,74,0.06);">
+      <div class="container">
+        <div class="section-title">
+          <span class="badge">Follow Anike Clothique</span>
+          <h2>Stay connected on social media</h2>
+          <p>Follow us for new drops, styling inspiration, and exclusive previews.</p>
+        </div>
+        <div class="socials">
+          <a class="social-btn" href="https://tiktok.com/@anikeclothique27" target="_blank" rel="noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 6v6c0 2.21 1.79 4 4 4 1.66 0 3.07-1.02 3.64-2.44.52.32 1.07.54 1.66.64-.5 1.47-1.92 2.56-3.6 2.56-2.21 0-4-1.79-4-4V4H9z"/>
+            </svg>
+            TikTok
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="credits">
+      <p>Powered by Student Brand Hub • Courtesy: LFM • Sponsored by: Salamdev 👨‍💻</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Anike Clothique</div>
+        <div class="footer-sub">Quality Fashion for Everyday Style</div>
+      </div>
+      <div class="footer-sub">Powered by Student Brand Hub</div>
+    </div>
+  </footer>
+
+  <a class="float-whatsapp" href="https://wa.me/2347019143507" target="_blank" rel="noreferrer" aria-label="Order on WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+      <path d="M16.5 3h-9C5.67 3 4 4.67 4 6.5v11C4 19.33 5.67 21 7.5 21h9c1.83 0 3.5-1.67 3.5-3.5v-11C20 4.67 18.33 3 16.5 3z"/>
+      <path d="M16 14.5c-.2.4-1.2.9-1.4 1-.2.1-.4.1-.7 0-.3-.1-1.2-.5-2.3-1.1-1-.5-1.7-1.3-1.9-1.6-.2-.3-.6-.7-.6-1 0-.3.1-.5.3-.7.2-.2.5-.3.7-.5.2-.1.3-.2.4-.4.1-.2.1-.4 0-.6-.1-.2-.9-2.1-1.2-2.9-.3-.9-.8-.8-1.1-.8h-.9c-.3 0-.7.1-1 .3-.3.2-1.1 1.1-1.1 2.6s1.1 3 1.3 3.2c.2.2 2.3 3.6 5.7 4.9.8.3 1.4.5 1.9.6.8.1 1.4.1 1.9.1.6 0 1.5-.2 2.2-.8.7-.6 1.6-1.5 1.8-2.9.2-1.4 0-2.1-.2-2.3-.2-.1-.3-.1-.6-.1-.2 0-1.3.5-1.5.6z"/>
+    </svg>
+  </a>
+
+  <div id="productModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:999; align-items:center; justify-content:center;">
+    <div style="background:#fff; border-radius:16px; max-width:420px; width:90%; padding:2rem; box-shadow:0 16px 40px rgba(0,0,0,0.18); position:relative;">
+      <button id="closeModal" style="position:absolute; top:12px; right:12px; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+      <img id="modalImg" src="" alt="" style="width:100%; border-radius:12px; margin-bottom:1rem;">
+      <h3 id="modalTitle"></h3>
+      <p id="modalDesc"></p>
+    </div>
+  </div>
+
+  <script>
+    // Prevent redeclaration by wrapping in an IIFE
+    (() => {
+      const navToggle = document.getElementById('navToggle');
+      const navLinksMenu = document.getElementById('navLinks');
+
+      navToggle.addEventListener('click', () => {
+        navLinksMenu.classList.toggle('open');
+      });
+
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => navLinksMenu.classList.remove('open'));
+      });
+    })();
+
+    // Modal product view
+    (() => {
+      const modal = document.getElementById('productModal');
+      const modalImg = document.getElementById('modalImg');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalDesc = document.getElementById('modalDesc');
+      const closeModal = document.getElementById('closeModal');
+
+      document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', () => {
+          modalImg.src = card.dataset.img;
+          modalImg.alt = card.dataset.title;
+          modalTitle.textContent = card.dataset.title;
+          modalDesc.textContent = card.dataset.desc;
+          modal.style.display = 'flex';
+        });
+      });
+
+      closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+
+      modal.addEventListener('click', e => {
+        if (e.target === modal) modal.style.display = 'none';
+      });
+    })();
+  </script>
+</body>
+</html>
